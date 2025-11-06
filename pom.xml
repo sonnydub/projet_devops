@@ -2,53 +2,66 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.nom.app</groupId>
+  <groupId>com.sonnydub</groupId>
   <artifactId>nom-app-java</artifactId>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>NomAppJavaFX</name>
-  <description>Application JavaFX propre et fonctionnelle</description>
+  <name>nom-app-java</name>
+  <description>Projet JavaFX DevOps avec CI/CD et SonarQube</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <javafx.version>20</javafx.version>
   </properties>
 
   <dependencies>
+    <!-- Exemple de dépendance JavaFX -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>${javafx.version}</version>
+      <version>20</version>
     </dependency>
+    <!-- Ajoute ici tes autres dépendances -->
   </dependencies>
 
   <build>
     <plugins>
+      <!-- Plugin Maven pour compiler -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
         <configuration>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
 
+      <!-- Plugin SonarQube -->
       <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.8</version>
-        <configuration>
-          <mainClass>com.nom.app.App</mainClass>
-        </configuration>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
       </plugin>
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>sonar</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <sonar.projectKey>sonnydub_nom-app-java</sonar.projectKey>
+        <sonar.organization>sonnydub</sonar.organization>
+        <sonar.host.url>${env.SONAR_HOST_URL}</sonar.host.url>
+        <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+      </properties>
+    </profile>
+  </profiles>
 </project>
